@@ -1,8 +1,6 @@
 import pandas as pd
 import os
 from bs4 import BeautifulSoup
-import requests
-import lxml.html as lh
 
 
 def main():
@@ -37,7 +35,6 @@ def main():
             for i in range(len(data_rows))]
 
     r_stats = pd.DataFrame(team_stats, columns = header)
-    print(r_stats)
     
 
 
