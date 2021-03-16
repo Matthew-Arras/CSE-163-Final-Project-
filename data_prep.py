@@ -44,7 +44,7 @@ def scrape_regular(url):
     r_stats = pd.DataFrame(team_stats, columns = headers)
 
     #Temporarily cut off team name
-    names = r_stats['Team'].str.replace('*', '', 1)
+    names = r_stats['Team']
     
     r_stats = r_stats.loc[:, 'G':'PTS']
 
@@ -52,7 +52,6 @@ def scrape_regular(url):
         r_stats[cname] = r_stats[cname].astype(float)
 
     r_stats['Team'] = names
-    print(type(r_stats.loc[3, 'Team']))
 
     #Join win percs to r_stats
     #Cut unneccesary data off of r stats 
