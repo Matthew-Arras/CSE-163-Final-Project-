@@ -4,46 +4,25 @@ from bs4 import BeautifulSoup
 import requests
 from selenium import webdriver
 import lxml.html as lh
+import json
 
 
 def main():
-    regs_18 = pd.read_csv('regular_stats_18_19.csv')
-    regs_19 = pd.read_csv('regular_stats_19_20.csv')
-    print('test123')
-
+    #Reading in local CSV files of basketball reference using pandas
+    regs_18 = pd.read_csv("https://raw.githubusercontent.com/Matthew-Arras/CSE-163-Final-Project-/main/data/regular_stats_18_19.csv")
+    regs_19 = pd.read_csv("https://raw.githubusercontent.com/Matthew-Arras/CSE-163-Final-Project-/main/data/regular_stats_19_20.csv")
+    
     headers = {'User-Agent': 'Mozilla/5.0'}
-    #chromedriver = r"C:\Users\djbji\Downloads\chromedriver_win32\chromedriver.exe"
-    #d = webdriver.Chrome(chromedriver)
-    #d.get('https://www.nba.com/stats/teams/advanced/')
-    #s = soup(d.page_source, 'html.parser').find('table', {'class':'table'})
-    
 
-    url = "https://www.nba.com/stats/teams/advanced/"
-    page = requests.get(url)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    doc = lh.fromstring(page.content)
-    print(soup.prettify())
-
-    header = soup.find_all(class_="stats-glossary")
-    #stats-glossary
-    print(header)
-
+    #Retreiving URL from basketball-reference for 2018-2019 regular season stats
+    url = "https://www.basketball-reference.com/leagues/NBA_2019.html"
+    #Retrieves webpage content
+    source = requests.get(url, headers= headers)
+    #Create soup object using source(webpage) content and paring with lxml
+    soup = BeautifulSoup(source.content, 'html.parser')
+    example = soup.find_all('tr', {"id"="div_team-stats-per_game"})
+    print(example)
     
-    #source = requests.get(url, headers= headers)
-    #soup = BeautifulSoup(source.content,)
-    #s = soup.findAll('W')
-    #print(s)
-    
-    
-    #header = [th.getText() for th in soup.findAll('tr', limit=1)[0].findAll('th')]
-    #header = header[1:]
-
-    #rows = soup.findAll('tr')[1:]
-
-    #player_stats = [[td.getText() for td in rows[i].findAll('td')] for i in range(len(rows))]
-    
-    #stats = pd.DataFrame(player_stats)
-    #print(stats.head(10))
 
 
 if __name__ == '__main__':
