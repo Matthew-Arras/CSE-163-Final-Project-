@@ -45,13 +45,14 @@ def scrape_regular(url):
 
     #Temporarily cut off team name
     names = r_stats['Team'].str.replace('*', '', 1)
-
+    
     r_stats = r_stats.loc[:, 'G':'PTS']
 
     for cname in r_stats.columns:
         r_stats[cname] = r_stats[cname].astype(float)
 
     r_stats['Team'] = names
+    print(type(r_stats.loc[3, 'Team']))
 
     #Join win percs to r_stats
     #Cut unneccesary data off of r stats 
@@ -93,6 +94,7 @@ def scrape_advanced(url):
 
     # temporarily cuts team name off
     names = a_stats['Team']
+    
     a_stats = a_stats.loc[:, 'Age':'FT/FGA']
 
 
@@ -114,25 +116,25 @@ def main():
 
     regs_18 = scrape_regular('https://www.basketball-reference.com/leagues/NBA_2019.html')
     regs_19 = scrape_regular('https://www.basketball-reference.com/leagues/NBA_2020.html')
-    print('2018 regular data:')
-    print(regs_18.head)
-    print(regs_18.columns)
+   # print('2018 regular data:')
+    #print(regs_18.head)
+    #print(regs_18.columns)
 
-    print()
-    print('2019 regular data:')
-    print(regs_19.head)
-    print(regs_19.columns)
+    #print()
+    #print('2019 regular data:')
+    #print(regs_19.head)
+    #print(regs_19.columns)
 
     advs_18 = scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2019.html')
     advs_19 = scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2020.html')
-    print('2018 advanced data:')
-    print(advs_18.head)
-    print(advs_18.columns)
+    #print('2018 advanced data:')
+    #print(advs_18.head)
+    #print(advs_18.columns)
 
-    print('2019 advanced data')
-    print()
-    print(advs_18.head)
-    print(advs_18.columns)
+    #print('2019 advanced data')
+    #print()
+    #print(advs_19.head)
+    #print(advs_19.columns)
 
 
     # Need to test that:
