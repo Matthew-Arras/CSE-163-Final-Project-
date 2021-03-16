@@ -89,6 +89,21 @@ def test_astats(a_stats18, a_stats19):
     assert_equals(14, len(a_stats18.columns))
     assert_equals(14, len(a_stats19.columns))
 
+    # 18 spot checks 
+    # Bucks pace 
+    assert_equals(103.3, a_stats18.loc[0, 'Pace'])
+    
+    # Magic Effective FG% 
+    assert_equals(.518, a_stats18.loc[13, 'eFG%'])
+
+    # 19 data spot checks
+
+    #Bulls offensive rating 
+    assert_equals(106.7 ,a_stats19.loc[21, 'ORtg'])
+
+    #Warriors Three point attempt rate
+    assert_equals(.355 ,a_stats19.loc[29, '3PAr'])
+
 
 
 def main():
