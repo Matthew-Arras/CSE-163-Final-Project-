@@ -105,6 +105,11 @@ def test_astats(a_stats18, a_stats19):
     assert_equals(.355 ,a_stats19.loc[29, '3PAr'])
 
 
+    #type check
+    assert_equals(str, type(a_stats18.loc[16, 'Team']))
+    assert_equals(str, type(a_stats19.loc[4, 'Team']))
+
+
 
 def main():
     r_stats18 = data_prep.scrape_regular('https://www.basketball-reference.com/leagues/NBA_2019.html')
