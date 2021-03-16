@@ -20,9 +20,10 @@ def training_labels_wl_column_tr(regs_18):
     training_labels['W/L%'] = training_labels['W']/training_labels['G']
     
     training_new = training_labels[['Team', 'W/L%']]
-    training_new['Team'] = training_new['Team'].str.replace('*', '')
 
     training_final = regs_18.merge(training_new, on='Team', how='outer')
+    training_final = training_final.drop('Team', 1)
+    training_final = training_final.dropna()
     return training_final
 
 
@@ -36,9 +37,10 @@ def testing_labels(regs_19):
     testing_labels_feat['W/L%'] = testing_labels_feat['W'] / testing_labels_feat['G']
 
     testing_labels_new = testing_labels_feat[['Team', 'W/L%']]
-    testing_labels_new['Team'] = testing_labels_new['Team'].str.replace('*', '')
 
     testing_labels_final = regs_19.merge(testing_labels_new, on='Team', how='outer')
+    testing_labels_final = testing_labels_final.drop('Team', 1)
+    testing_labels_final = testing_labels_final.dropna()
     return testing_labels_final
 
 
@@ -51,9 +53,10 @@ def training_labels_wl_column_adv(advs_18):
     training_labels_adv['W/L%'] = training_labels_adv['W']/training_labels_adv['G'] 
 
     training_new_adv = training_labels_adv[['Team', 'W/L%']]
-    training_new_adv['Team'] = training_new_adv['Team'].str.replace('*', '')
 
     training_adv_final = advs_18.merge(training_new_adv, on='Team', how='outer')
+    training_adv_final = training_adv_final.drop('Team', 1)
+    training_adv_final = training_adv_final.dropna()
     return training_adv_final
 
 
@@ -67,9 +70,10 @@ def testing_labels_adv(advs_19):
     testing_labels_feat_adv['W/L%'] = testing_labels_feat_adv['W'] / testing_labels_feat_adv['G']
 
     testing_labels_new_adv = testing_labels_feat_adv[['Team', 'W/L%']]
-    testing_labels_new_adv['Team'] = testing_labels_new_adv['Team'].str.replace('*', '')
 
     testing_labels_final_adv = advs_19.merge(testing_labels_new_adv, on='Team', how='outer')
+    testing_labels_final_adv = testing_labels_final_adv.drop('Team', 1)
+    testing_labels_final_adv = testing_labels_final_adv.dropna()
     return testing_labels_final_adv
 
 
