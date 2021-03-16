@@ -165,7 +165,7 @@ def main():
     adv18 = fit_and_predict_wp_adv_18(wl_percentage_adv, testing_features_adv)
 
     comparison(tr18, adv18)
-    print('---END OF FILE--')
+    print('---END OF FILE-')
  
  
 if __name__ == '__main__':
