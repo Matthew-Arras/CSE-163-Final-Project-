@@ -55,23 +55,51 @@ def assert_equals(expected, received):
 
 
 def test_rstats(r_stats18, r_stats19):
-
     # Row count check
     assert_equals(30, len(r_stats18['Team']))
     assert_equals(30, len(r_stats19['Team']))
 
     # Column count check
+    assert_equals(24, len(r_stats19.columns))
+    assert_equals(24, len(r_stats19.columns))
 
-    assert_equals(24, len(r_stats19.columns))
-    assert_equals(24, len(r_stats19.columns))
+    # 18 data spot checks 
+    #should be OKC Thunders 3P Field Goals per game
+    #Note original dataset wasn't 0 indexed so we add one
+    #IE: Thunder were at 7, subtract one for 6
+    assert_equals(11.4, r_stats18.loc[6, '3P'])
+
+    #Should Be Boston Celtic total rebounds per game
+    assert_equals(44.5, r_stats18.loc[13, 'TRB'])
+
+    # 19 data spot checks 
+    # Should be Utah Jazz three point percentage per game
+    assert_equals(.380, r_stats19.loc[17, '3P%'])
+    
+    # Should be Utah Jazz free throw attempts per game 
+    assert_equals(22.8, r_stats19.loc[17, 'FTA'])
+
+def test_astats(a_stats18, a_stats19):
+
+    # Num rows check 
+    assert_equals(30, len(a_stats18['Team']))
+    assert_equals(30, len(a_stats19['Team']))
+
+    # Num columns check 
+    assert_equals(14, len(a_stats18.columns))
+    assert_equals(14, len(a_stats19.columns))
+
 
 
 def main():
     r_stats18 = data_prep.scrape_regular('https://www.basketball-reference.com/leagues/NBA_2019.html')
     r_stats19 = data_prep.scrape_regular('https://www.basketball-reference.com/leagues/NBA_2020.html')
 
+    a_stats18 = data_prep.scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2019.html')
+    a_stats19 = data_prep.scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2020.html')
 
     test_rstats(r_stats18, r_stats19)
+    test_astats(a_stats18, a_stats19)
 
 
 
