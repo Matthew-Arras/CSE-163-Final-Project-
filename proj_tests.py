@@ -1,7 +1,6 @@
-import data_prep 
+import data_prep
 import math
 import pandas as pd
-
 
 
 def check_approx_equals(expected, received):
@@ -44,7 +43,6 @@ def assert_equals(expected, received):
         f'Failed: Expected {expected}, but received {received}'
 
 
-
 def test_rstats(r_stats18, r_stats19):
     # Row count check
     assert_equals(30, len(r_stats18['Team']))
@@ -54,7 +52,7 @@ def test_rstats(r_stats18, r_stats19):
     assert_equals(24, len(r_stats19.columns))
     assert_equals(24, len(r_stats19.columns))
 
-    # 18 data spot checks 
+    # 18 data spot checks
     #should be OKC Thunders 3P Field Goals per game
     #Note original dataset wasn't 0 indexed so we add one
     #IE: Thunder were at 7, subtract one for 6
@@ -63,44 +61,42 @@ def test_rstats(r_stats18, r_stats19):
     #Should Be Boston Celtic total rebounds per game
     assert_equals(44.5, r_stats18.loc[13, 'TRB'])
 
-    # 19 data spot checks 
+    # 19 data spot checks
     # Should be Utah Jazz three point percentage per game
     assert_equals(.380, r_stats19.loc[17, '3P%'])
-    
-    # Should be Utah Jazz free throw attempts per game 
+
+    # Should be Utah Jazz free throw attempts per game
     assert_equals(22.8, r_stats19.loc[17, 'FTA'])
 
 
 def test_astats(a_stats18, a_stats19):
 
-    # Num rows check 
+    # Num rows check
     assert_equals(30, len(a_stats18['Team']))
     assert_equals(30, len(a_stats19['Team']))
 
-    # Num columns check 
+    # Num columns check
     assert_equals(14, len(a_stats18.columns))
     assert_equals(14, len(a_stats19.columns))
 
-    # 18 spot checks 
-    # Bucks pace 
+    # 18 spot checks
+    # Bucks pace
     assert_equals(103.3, a_stats18.loc[0, 'Pace'])
-    
-    # Magic Effective FG% 
+
+    # Magic Effective FG%
     assert_equals(.518, a_stats18.loc[13, 'eFG%'])
 
     # 19 data spot checks
 
-    #Bulls offensive rating 
+    #Bulls offensive rating
     assert_equals(106.7 ,a_stats19.loc[21, 'ORtg'])
 
     #Warriors Three point attempt rate
     assert_equals(.355 ,a_stats19.loc[29, '3PAr'])
 
-
     #type check
     assert_equals(str, type(a_stats18.loc[16, 'Team']))
     assert_equals(str, type(a_stats19.loc[4, 'Team']))
-
 
 
 def main():

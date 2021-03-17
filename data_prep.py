@@ -2,7 +2,6 @@
 Matthew Arras and Bjorn Soriano 
 CSE 163 Winter Quarter 
  
-
 '''
 import pandas as pd
 from bs4 import BeautifulSoup
