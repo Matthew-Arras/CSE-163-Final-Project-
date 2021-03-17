@@ -1,7 +1,8 @@
 '''
 Matthew Arras and Bjorn Soriano 
 CSE 163 Winter Quarter 
- 
+Contains functions that scrap advanced and traditional 
+statistics off of basketball-reference.com
 '''
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -10,7 +11,11 @@ import requests
 # As of now takes in a URL and returns a pandas dataframe 
 # of the traditional stats
 def scrape_regular(url):
-
+    '''
+    Takes in the url of a page on basketball reference and
+    scrapes the traditional statistics off of it
+    Returns a df of these statistics
+    '''
     w_headers = {'User-Agent': 'Mozilla/5.0'}
 
     #Retrieves webpage content
@@ -58,7 +63,11 @@ def scrape_regular(url):
 
 
 def scrape_advanced(url):
-    
+    '''
+    Takes in the url of a page on basketball reference and
+    scrapes the advanced statistics off of it
+    Returns a df of these statistics
+    '''
     w_headers = {'User-Agent': 'Mozilla/5.0'}
 
     #Retrieves webpage content
@@ -84,25 +93,22 @@ def scrape_advanced(url):
     data_rows = raw_data.find_all('tr')
     
     team_stats = [[td.getText() for td in data_rows[i].findAll('td', limit=20)]
-            for i in range(len(data_rows))]
-    
+                for i in range(len(data_rows))]
 
-    a_stats = pd.DataFrame(team_stats, columns = headers)
+    a_stats = pd.DataFrame(team_stats, columns=headers)
 
     # temporarily cuts team name off
     names = a_stats['Team']
-    
+
     a_stats = a_stats.loc[:, 'Age':'FT/FGA']
 
-
-    # Converting values in table from strings to numerals 
+    # Converting values in table from strings to numerals
     for cname in a_stats.columns:
         a_stats[cname] = a_stats[cname].astype(float)
-
 
     # Cutting unnecessary/contaminating data out of set
     a_stats = a_stats.loc[:, 'SOS':]
 
-    #Reattaching Name 
+    # Reattaching Name
     a_stats['Team'] = names
     return a_stats
