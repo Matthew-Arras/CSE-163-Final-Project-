@@ -1,6 +1,11 @@
+'''
+Matthew Arras and Bjorn Soriano
+CSE 163 Winter Quarter
+Modules contains functions that test the quality
+of the data scraping done in data_prep
+'''
 import data_prep
 import math
-import pandas as pd
 
 
 def check_approx_equals(expected, received):
@@ -44,6 +49,11 @@ def assert_equals(expected, received):
 
 
 def test_rstats(r_stats18, r_stats19):
+    '''
+    Takes in dataframes that contain traditional statistics, and performs
+    checks on their dimensions and values to ensure that their data has
+    been properly scraped from the web
+    '''
     # Row count check
     assert_equals(30, len(r_stats18['Team']))
     assert_equals(30, len(r_stats19['Team']))
@@ -53,12 +63,12 @@ def test_rstats(r_stats18, r_stats19):
     assert_equals(24, len(r_stats19.columns))
 
     # 18 data spot checks
-    #should be OKC Thunders 3P Field Goals per game
-    #Note original dataset wasn't 0 indexed so we add one
-    #IE: Thunder were at 7, subtract one for 6
+    # should be OKC Thunders 3P Field Goals per game
+    # Note original dataset wasn't 0 indexed so we add one
+    # IE: Thunder were at 7, subtract one for 6
     assert_equals(11.4, r_stats18.loc[6, '3P'])
 
-    #Should Be Boston Celtic total rebounds per game
+    # Should Be Boston Celtic total rebounds per game
     assert_equals(44.5, r_stats18.loc[13, 'TRB'])
 
     # 19 data spot checks
@@ -70,7 +80,11 @@ def test_rstats(r_stats18, r_stats19):
 
 
 def test_astats(a_stats18, a_stats19):
-
+    '''
+    Takes in dataframes that contain advanced statistics, and performs
+    checks on their dimensions and values to ensure that their data has
+    been properly scraped from the web
+    '''
     # Num rows check
     assert_equals(30, len(a_stats18['Team']))
     assert_equals(30, len(a_stats19['Team']))
@@ -88,23 +102,26 @@ def test_astats(a_stats18, a_stats19):
 
     # 19 data spot checks
 
-    #Bulls offensive rating
-    assert_equals(106.7 ,a_stats19.loc[21, 'ORtg'])
+    # Bulls offensive rating
+    assert_equals(106.7, a_stats19.loc[21, 'ORtg'])
 
-    #Warriors Three point attempt rate
-    assert_equals(.355 ,a_stats19.loc[29, '3PAr'])
+    # Warriors Three point attempt rate
+    assert_equals(.355, a_stats19.loc[29, '3PAr'])
 
-    #type check
     assert_equals(str, type(a_stats18.loc[16, 'Team']))
     assert_equals(str, type(a_stats19.loc[4, 'Team']))
 
 
 def main():
-    r_stats18 = data_prep.scrape_regular('https://www.basketball-reference.com/leagues/NBA_2019.html')
-    r_stats19 = data_prep.scrape_regular('https://www.basketball-reference.com/leagues/NBA_2020.html')
+    r18url = 'https://www.basketball-reference.com/leagues/NBA_2019.html'
+    r19url = 'https://www.basketball-reference.com/leagues/NBA_2020.html'
+    r_stats18 = data_prep.scrape_regular(r18url)
+    r_stats19 = data_prep.scrape_regular(r19url)
 
-    a_stats18 = data_prep.scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2019.html')
-    a_stats19 = data_prep.scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2020.html')
+    a18url = 'https://www.basketball-reference.com/leagues/NBA_2019.html'
+    a19url = 'https://www.basketball-reference.com/leagues/NBA_2020.html'
+    a_stats18 = data_prep.scrape_advanced(a18url)
+    a_stats19 = data_prep.scrape_advanced(a19url)
 
     test_rstats(r_stats18, r_stats19)
     test_astats(a_stats18, a_stats19)
