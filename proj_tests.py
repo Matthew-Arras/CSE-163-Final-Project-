@@ -3,15 +3,6 @@ import math
 import pandas as pd
 
 
-def parse(file_name):
-    """
-    Reads the CSV with the given file_name and returns it as a list of
-    dictionaries. The list will have a dictionary for each row, and each
-    dictionary will have a key for each column.
-    """
-    df = pd.read_csv(file_name)
-    return df.to_dict('records')
-
 
 def check_approx_equals(expected, received):
     """
@@ -79,6 +70,7 @@ def test_rstats(r_stats18, r_stats19):
     # Should be Utah Jazz free throw attempts per game 
     assert_equals(22.8, r_stats19.loc[17, 'FTA'])
 
+
 def test_astats(a_stats18, a_stats19):
 
     # Num rows check 
@@ -120,7 +112,6 @@ def main():
 
     test_rstats(r_stats18, r_stats19)
     test_astats(a_stats18, a_stats19)
-
 
 
 if __name__ == '__main__':

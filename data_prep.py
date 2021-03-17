@@ -5,7 +5,6 @@ CSE 163 Winter Quarter
 
 '''
 import pandas as pd
-import os
 from bs4 import BeautifulSoup
 import requests
 
@@ -108,40 +107,3 @@ def scrape_advanced(url):
     #Reattaching Name 
     a_stats['Team'] = names
     return a_stats
-
-
-def main():
-
-
-    regs_18 = scrape_regular('https://www.basketball-reference.com/leagues/NBA_2019.html')
-    regs_19 = scrape_regular('https://www.basketball-reference.com/leagues/NBA_2020.html')
-   # print('2018 regular data:')
-    #print(regs_18.head)
-    #print(regs_18.columns)
-
-    #print()
-    #print('2019 regular data:')
-    #print(regs_19.head)
-    #print(regs_19.columns)
-
-    advs_18 = scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2019.html')
-    advs_19 = scrape_advanced('https://www.basketball-reference.com/leagues/NBA_2020.html')
-    #print('2018 advanced data:')
-    #print(advs_18.head)
-    #print(advs_18.columns)
-
-    #print('2019 advanced data')
-    #print()
-    #print(advs_19.head)
-    #print(advs_19.columns)
-
-
-    # Need to test that:
-    #   Data is properly scraped (Format check)
-    #   All data that should be an int/double is
-
-
-
-
-if __name__ == '__main__':
-    main()
