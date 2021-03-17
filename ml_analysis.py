@@ -3,7 +3,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 import pandas as pd
 import data_prep
-
+import eli5
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 '''
 Returns a TUPLE with the training and test labels, 
@@ -37,6 +39,35 @@ def train_model(stats):
     model.fit(features, labels)
 
     return model
+
+# Stands for regular important features
+def plot_rif(r_features):
+    sns.barplot(x='feature', y='weight', data=r_features)
+
+    plt.xlabel('Feature')
+    plt.ylabel('Weight of Feature') 
+    plt.title('Weights of Features in Traditional Statistics')
+
+    plt.savefig('graphs/tradition-imp-feats.png')
+
+def plot_aif(a_features):
+    sns.barplot(x='feature', y='weight', data=a_features)
+
+    plt.xlabel('Feature')
+    plt.ylabel('Weight of Feature')
+    plt.title('Weights of Features in Advanced Statistics')
+
+    plt.savefig('graphs/advanced-imp-feats.png')
+
+def plot_MSE_diffs(rmse, amse):
+    sns.barplot(x=['Traditional', 'Advanced'], y=[rmse, amse])
+
+    plt.xlabel('Type of Statistics')
+    plt.ylabel('Mean Sqaured Error') 
+    plt.title('Error by Statisic Type')
+
+    plt.savefig('graphs/MSE_diffs.png')
+
 
 def main():
     training_labels, testing_labels = bring_in_labels()
@@ -82,17 +113,20 @@ def main():
     a_model_mse = mean_squared_error(atest_labels, a_model_predictions)
 
 
-    print(r_model_mse)
-    print(a_model_mse)
-    
+    # Stands for regular feature names 
+    rf_names = rstats_18.columns
+    rf_names = list(rf_names[:len(rf_names) -1])
+    r_imp_features = eli5.format_as_dataframe(eli5.explain_weights(r_model, top=10, feature_names=rf_names))
+
+    # Stands for advanced feature names
+    af_names = astats_18.columns
+    af_names = list(af_names[:len(af_names) -1])
+    a_imp_features = eli5.format_as_dataframe(eli5.explain_weights(a_model,top=10, feature_names=af_names))
+
+
+    plot_MSE_diffs(r_model_mse, a_model_mse)
+    plot_rif(r_imp_features)
+    plot_aif(a_imp_features)
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
