@@ -14,6 +14,7 @@ method is ml_analysis.py (Unless you count the test module, in which case there 
 
 Running the ml_analysis.py module will use functions from the data_prep.py module to scrap
 the data, and will all perform all of the model training, predicting, testing, and interpreting
+(Result graphs are stored in graphs folder)
 
 Data:
 The vast majority of our data isn't explicitly stored becase we scrape it off of basketball-reference,

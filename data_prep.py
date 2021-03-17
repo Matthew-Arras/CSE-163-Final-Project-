@@ -40,7 +40,7 @@ def scrape_regular(url):
     data_rows = raw_data.find_all('tr')
 
     team_stats = [[td.getText() for td in data_rows[i].findAll('td')]
-                   for i in range(len(data_rows))]
+                  for i in range(len(data_rows))]
 
     r_stats = pd.DataFrame(team_stats, columns=headers)
 
