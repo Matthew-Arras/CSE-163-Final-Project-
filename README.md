@@ -13,7 +13,7 @@ Our program is pretty simple, the only python module that actually contains a ma
 method is ml_analysis.py (Unless you count the test module, in which case there is two)
 
 Running the ml_analysis.py module will use functions from the data_prep.py module to scrap
-the data, and will all perform all of the model training, predicting, testing, and interpreting
+the data, and will perform all of the model training, predicting, testing, and interpreting
 (Result graphs are stored in graphs folder)
 
 Data:
